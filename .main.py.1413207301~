@@ -1,0 +1,28 @@
+class Solution:
+  def removeDuplicates(self, nums: list[int]) -> int:
+    if len(nums)<3:
+      return len(nums)
+    duplicate = 0 
+    total=len(nums)
+        
+    for i in range(2,len(nums)):
+      if nums[i]==nums[i-1]==nums[i-2]:
+        nums.remove(nums[i])
+         nums.append(0)
+        duplicate+=1
+      else:
+        duplicate=0
+      if duplicate==2:
+         nums.remove(nums[i])
+         nums.append(0)
+         duplicate-=1
+         total-=1
+         i-=1
+         
+
+    print(nums)
+    return total 
+
+sol = Solution()
+
+print(sol.removeDuplicates(nums = [1,1,1,1,2,3]))

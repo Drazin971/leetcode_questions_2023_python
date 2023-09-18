@@ -13,3 +13,29 @@ class Solution:
 sol = Solution()
 
 print(sol.hIndex(citations = [1]))
+
+class Solution:
+  def evalRPN(self, tokens: list[str]) -> int:
+    result = []
+    for item in tokens:
+      if item.isdecimal() or item[1:].isdecimal(): #<-
+        result.append(item)
+      else:
+        op1 = result.pop()
+        op2 = result.pop()
+        #print(op1,op2,item)
+        score = int(eval(str(op2) + " " + item + " " + str(op1)))
+        result.append(score)
+        #print(score, result)
+    return result[0]
+
+
+sol=Solution()
+
+print(sol.evalRPN(tokens = ["2","1","+","3","*"])) #9
+
+print(sol.evalRPN(tokens = ["4","13","5","/","+"])) #6
+
+print(sol.evalRPN(tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"])) #22
+
+print(sol.evalRPN(tokens = ["18"])) #18

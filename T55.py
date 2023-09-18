@@ -1,23 +1,26 @@
 class Solution:
-    def searchJump(self, nums: list[int], current_position: int) -> bool:
-      print(current_position, len(nums))
-      if current_position == len(nums)-1:
-        return True
-      for i in range(nums[current_position],0,-1):
-        if  self.searchJump(nums, current_position+i) == True:
-          return True
-      return False  
-      
+  def canJump(self, nums: list[int]) -> bool:
+
+    memo = [False] * len(nums)
+    memo[0] = True
+    current_max = 0
+    
+    for i in range(len(nums)-1):
+      if memo[i] == True:
         
-    def canJump(self, nums: list[int]) -> bool:
-      pos=0
-      if self.searchJump(nums, pos) == True:
-        return True
+        for j in range(current_max+1,min(i+nums[i]+1,len(nums))):
+          memo[j]=True
+        current_max = i + nums[i]
+        
       else:
         return False
-      
+    return memo[len(nums)-1]
+        
+   
 
 
 sol = Solution()
+
+print(sol.canJump([2,3,1,1,4]))
 
 print(sol.canJump([2,0,6,9,8,4,5,0,8,9,1,2,9,6,8,8,0,6,3,1,2,2,1,2,6,5,3,1,2,2,6,4,2,4,3,0,0,0,3,8,2,4,0,1,2,0,1,4,6,5,8,0,7,9,3,4,6,6,5,8,9,3,4,3,7,0,4,9,0,9,8,4,3,0,7,7,1,9,1,9,4,9,0,1,9,5,7,7,1,5,8,2,8,2,6,8,2,2,7,5,1,7,9,6]))

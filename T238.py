@@ -1,17 +1,21 @@
 class Solution:
   def productExceptSelf(self, nums: list[int]) -> list[int]:
-    ans = [0] * (len(nums))  
-    if nums.count(0)>1:
-     return ans
-    elif nums.count(0)==1:
-      nums[nums.index(0)] = i*=i
+    ans = [1] * (len(nums))  
+    l_product, r_product = 1, 1
+
     for i in range(len(nums)):
-      ans[i] = sum(nums) / nums[i]
+      ans[i] *= l_product
+      l_product *= nums[i]
+      
+      ans[len(nums)-i-1] *= r_product
+      r_product *= nums[len(nums)-i-1]
+
     return ans    
 
 sol = Solution()
 
 
 print(sol.productExceptSelf(nums = [-1,1,0,-3,3]))
+
 
 
